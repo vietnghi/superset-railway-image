@@ -31,6 +31,7 @@ EXPOSE 5008
 # BigQuery support: sqlalchemy-bigquery is the SQLAlchemy dialect;
 # db-dtypes is required for BigQuery type handling
 # fastmcp is required for the Superset MCP server
+RUN /app/.venv/bin/pip install mysqlclient psycopg2
 RUN pip install sqlalchemy-bigquery db-dtypes google-cloud-bigquery fastmcp
 
 # Specify the startup script as the entry point
