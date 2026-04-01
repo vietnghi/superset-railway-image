@@ -34,4 +34,10 @@ REDIS_PORT = int(os.environ.get('REDIS_PORT', '6379'))
 SUPERSET_ENV = os.environ.get('SUPERSET_ENV', 'development')
 SUPERSET_LOAD_EXAMPLES = os.environ.get('SUPERSET_LOAD_EXAMPLES', 'false').lower() == 'true'
 SUPERSET_SECRET_KEY = os.environ.get('SUPERSET_SECRET_KEY', 'dev-secret-key')
-SUPERSET_PORT = os.environ.get('SUPERSET_PORT'
+SUPERSET_PORT = os.environ.get('SUPERSET_PORT', '8088')
+
+ENABLE_TEMPLATE_PROCESSING = True
+
+FEATURE_FLAGS = {
+    "ENABLE_TEMPLATE_PROCESSING": True,
+}

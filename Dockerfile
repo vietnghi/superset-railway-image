@@ -1,4 +1,4 @@
-FROM apache/superset:latest
+FROM apache/superset:6
 
 USER root
 
@@ -27,11 +27,9 @@ ENV SUPERSET_CONFIG_PATH=/app/docker/superset_config.py
 
 EXPOSE 8088
 
-RUN pip install google
-RUN pip install google-api-core
-RUN pip install google.cloud.bigquery
-RUN pip install google.cloud.storage
-RUN pip install --upgrade google-api-python-client
+# BigQuery support: sqlalchemy-bigquery is the SQLAlchemy dialect;
+# db-dtypes is required for BigQuery type handling
+RUN pip install sqlalchemy-bigquery db-dtypes google-cloud-bigquery
 
 # Specify the startup script as the entry point
 COPY startup.sh ./startup.sh
@@ -45,6 +43,6 @@ RUN envsubst < "superset_config.py" > "/app/docker/superset_config.py"
 RUN chmod +x ./startup.sh
 RUN chmod +x /app/docker/docker-bootstrap.sh
 
-RUN export SUPERSET_CONFIG_PATH=/app/docker/superset_config.py
+
 CMD sh -c "./startup.sh"
 #CMD sh -c "./opt/superset/startup.sh"
