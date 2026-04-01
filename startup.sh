@@ -77,5 +77,12 @@ if [ "$SUPERSET_LOAD_EXAMPLES" = "yes" ]; then
     echo_step "4" "Complete" "Loading examples"
 fi
 
+if [ "${MCP_ENABLED:-false}" = "true" ]; then
+    MCP_HOST="${MCP_SERVICE_HOST:-0.0.0.0}"
+    MCP_PORT="${MCP_SERVICE_PORT:-5008}"
+    echo "Starting MCP server on ${MCP_HOST}:${MCP_PORT}..."
+    superset mcp run --host "${MCP_HOST}" --port "${MCP_PORT}" &
+fi
+
 echo "Starting web app..."
 /usr/bin/run-server.sh

@@ -26,10 +26,12 @@ ENV SQLALCHEMY_DATABASE_URI=\"${DATABASE_URL}\"
 ENV SUPERSET_CONFIG_PATH=/app/docker/superset_config.py
 
 EXPOSE 8088
+EXPOSE 5008
 
 # BigQuery support: sqlalchemy-bigquery is the SQLAlchemy dialect;
 # db-dtypes is required for BigQuery type handling
-RUN pip install sqlalchemy-bigquery db-dtypes google-cloud-bigquery
+# fastmcp is required for the Superset MCP server
+RUN pip install sqlalchemy-bigquery db-dtypes google-cloud-bigquery fastmcp
 
 # Specify the startup script as the entry point
 COPY startup.sh ./startup.sh

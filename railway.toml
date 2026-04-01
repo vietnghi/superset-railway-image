@@ -1,0 +1,20 @@
+[build]
+builder = "dockerfile"
+dockerfilePath = "Dockerfile"
+
+[deploy]
+startCommand = "sh -c ./startup.sh"
+healthcheckPath = "/health"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# Superset web UI
+[[deploy.multiPortConfig]]
+protocol = "TCP"
+port = 8088
+
+# MCP SSE server (enable by setting MCP_ENABLED=true)
+[[deploy.multiPortConfig]]
+protocol = "TCP"
+port = 5008
